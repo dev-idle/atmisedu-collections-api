@@ -1,0 +1,20 @@
+CREATE TABLE hubsChannel (
+  channelID int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+  cnName nvarchar(128) NOT NULL,
+  cnUrl  varchar(128) NOT NULL,
+  cnIcon varchar(128) NOT NULL,
+  cnStyle varchar(128) NOT NULL,
+  cnOrder int NOT NULL,
+  isActived tinyint NOT NULL,
+);
+
+CREATE TABLE hubsTags (
+  tagID int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+  tgName varchar(64) NOT NULL,
+  tgDescription nvarchar(512) NULL,
+  tgIcon varchar(128) NULL,
+  tgStyle varchar(128) NULL,
+  userID int NOT NULL,
+  tgCreatedDate datetime NOT NULL,
+  isActived tinyint NOT NULL DEFAULT 1,
+);

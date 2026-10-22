@@ -1,0 +1,6 @@
+@atMISEDU.API_HostAddress = http://localhost:5193
+
+GET {{atMISEDU.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
