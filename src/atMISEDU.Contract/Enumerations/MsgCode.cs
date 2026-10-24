@@ -120,5 +120,131 @@ namespace atMISEDU.Contract.Enumerations
         ERR_HUBS_HUBS_CHANNEL_ID_NOT_FOUND,
 
         #endregion
+
+        #region CollectionArticles msg codes
+
+        /// <summary>
+        /// CollectionArticles request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_INVALID,
+
+        /// <summary>
+        /// CollectionArticles with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionTags msg codes
+
+        /// <summary>
+        /// CollectionTags request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_TAGS_INVALID,
+
+        /// <summary>
+        /// CollectionTags with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_TAGS_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionAwardCatalog msg codes
+
+        /// <summary>
+        /// CollectionAwardCatalog request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_AWARD_CATALOG_INVALID,
+
+        /// <summary>
+        /// CollectionAwardCatalog with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_AWARD_CATALOG_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionArticlesInteraction msg codes
+
+        /// <summary>
+        /// CollectionArticlesInteraction request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_INTERACTION_INVALID,
+
+        /// <summary>
+        /// CollectionArticlesInteraction with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_INTERACTION_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionArticlesDiscussionInteraction msg codes
+
+        /// <summary>
+        /// CollectionArticlesDiscussionInteraction request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_DISCUSSION_INTERACTION_INVALID,
+
+        /// <summary>
+        /// CollectionArticlesDiscussionInteraction with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_DISCUSSION_INTERACTION_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionArticlesVote msg codes
+
+        /// <summary>
+        /// CollectionArticlesVote request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_VOTE_INVALID,
+
+        /// <summary>
+        /// CollectionArticlesVote with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_VOTE_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionArticlesDiscussion msg codes
+
+        /// <summary>
+        /// CollectionArticlesDiscussion request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_DISCUSSION_INVALID,
+
+        /// <summary>
+        /// CollectionArticlesDiscussion with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_DISCUSSION_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionArticlesAward msg codes
+
+        /// <summary>
+        /// CollectionArticlesAward request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_AWARD_INVALID,
+
+        /// <summary>
+        /// CollectionArticlesAward with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_AWARD_ID_NOT_FOUND,
+
+        #endregion
+
+        #region CollectionArticlesDiscussionAward msg codes
+
+        /// <summary>
+        /// CollectionArticlesDiscussionAward request is invalid
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_DISCUSSION_AWARD_INVALID,
+
+        /// <summary>
+        /// CollectionArticlesDiscussionAward with the id provided was not found
+        /// </summary>
+        ERR_COLLECTIONS_COLLECTION_ARTICLES_DISCUSSION_AWARD_ID_NOT_FOUND,
+
+        #endregion
     }
 }
