@@ -1,9 +1,11 @@
 using atMISEDU.Contract.Constants;
 using atMISEDU.Domain.Abstractions.Repositories.Sql.Base;
 using atMISEDU.Domain.Abstractions.Repositories.Sql.CATALOG;
+using atMISEDU.Domain.Abstractions.Repositories.Sql.COLLECTIONS;
 using atMISEDU.Domain.Abstractions.Repositories.Sql.HUBS;
 using atMISEDU.Persistence.Repositories.Sql.Base;
 using atMISEDU.Persistence.Repositories.Sql.CATALOG;
+using atMISEDU.Persistence.Repositories.Sql.COLLECTIONS;
 using atMISEDU.Persistence.Repositories.Sql.HUBS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,6 +48,21 @@ namespace atMISEDU.Persistence.DependencyInjection.Extensions
             #region HUBS
 
             services.AddScoped<IHubsChannelSqlRepository, HubsChannelSqlRepository>();
+
+            #endregion
+
+            #region COLLECTIONS
+
+            services.AddScoped<ICollectionArticlesSqlRepository, CollectionArticlesSqlRepository>();
+            services.AddScoped<ICollectionArticlesAwardSqlRepository, CollectionArticlesAwardSqlRepository>();
+            services.AddScoped<ICollectionArticlesDiscussionSqlRepository, CollectionArticlesDiscussionSqlRepository>();
+            services.AddScoped<ICollectionArticlesDiscussionAwardSqlRepository, CollectionArticlesDiscussionAwardSqlRepository>();
+            services.AddScoped<ICollectionArticlesDiscussionInteractionSqlRepository, CollectionArticlesDiscussionInteractionSqlRepository>();
+            services.AddScoped<ICollectionArticlesInteractionSqlRepository, CollectionArticlesInteractionSqlRepository>();
+            services.AddScoped<ICollectionArticlesTagsSqlRepository, CollectionArticlesTagsSqlRepository>();
+            services.AddScoped<ICollectionArticlesVoteSqlRepository, CollectionArticlesVoteSqlRepository>();
+            services.AddScoped<ICollectionAwardCatalogSqlRepository, CollectionAwardCatalogSqlRepository>();
+            services.AddScoped<ICollectionTagsSqlRepository, CollectionTagsSqlRepository>();
 
             #endregion
 
