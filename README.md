@@ -102,3 +102,26 @@ Mỗi tài nguyên có 5 API: `POST`, `PUT /{id}`, `DELETE /{id}`, `GET /{id}`, 
 - Request không đọc được (JSON sai định dạng, sai kiểu dữ liệu) trả 400 theo định dạng `Result`.
 - Swagger gọi đúng host đang chạy, dùng được với cả profile `http` và `https`.
 - Dữ liệu trả về dùng DTO trong `Application/Responses` để tên trường trùng tên cột (ví dụ `articleId`).
+
+## gRPC
+
+`atMISEDU.Grpc` là cổng vào thứ hai bên cạnh REST, dùng lại toàn bộ handler của tầng Application qua MediatR.
+
+| Project | Vai trò |
+| --- | --- |
+| `atMISEDU.Protos` | File `.proto` (`common.proto`, `COLLECTIONS/collection_tags.proto`), sinh code cho cả server và client |
+| `atMISEDU.Grpc` | Host gRPC (HTTP/2): service `Services/v1/COLLECTIONS`, `ExceptionInterceptor` đổi lỗi sang gRPC status |
+
+Hiện có `CollectionTagsService` với `Create`, `Update`, `Delete`, `GetDetail`, `GetAll`, cùng quy tắc nghiệp vụ như REST.
+
+```powershell
+dotnet run --project src/atMISEDU.Grpc --launch-profile http
+```
+
+Gọi thử bằng Postman (New → gRPC) tại `localhost:5185`, chọn **Using server reflection** để tự nạp danh sách method.
+
+| Lỗi | gRPC status | Trailers |
+| --- | --- | --- |
+| Dữ liệu đầu vào sai | `InvalidArgument` | `status-code: 400`, `message-code: ERR_..._INVALID` |
+| ID không tồn tại hoặc đã xóa | `NotFound` | `status-code: 404`, `message-code: ERR_..._ID_NOT_FOUND` |
+| Lỗi hệ thống | `Internal` | `status-code: 500`, `message-code: ERR_INTERNAL_SERVER` |
