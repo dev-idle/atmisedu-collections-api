@@ -3,14 +3,17 @@ using atMISEDU.Application.DependencyInjection.Extension;
 using atMISEDU.Contract.Abstractions;
 using atMISEDU.Contract.Constants;
 using atMISEDU.Contract.DependencyInjection.Extensions;
+using atMISEDU.Contract.Enumerations;
+using atMISEDU.Contract.Errors;
 using atMISEDU.Contract.Middlewares;
 using atMISEDU.Contract.Services;
+using atMISEDU.Contract.Shared;
 using atMISEDU.Persistence.DependencyInjection.Extensions;
 using atMISEDU.Presentation.Abstractions;
 using atMISEDUatMISEDUAPI.DependencyInjection.Extensions;
 using atMISEDUatMISEDUAPI.DependencyInjection.Options;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
+using System.Net;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,16 +22,8 @@ builder.Services.AddApplication();
 builder.Services.AddCors(options => { options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); });
 builder.Services.AddEndpointsApiExplorer();
 
-var swaggerSection = builder.Configuration.GetSection("DomainHosts");
-var serverUrl = swaggerSection.GetValue<string>("Url") ?? "";
-var baseURL = swaggerSection.GetValue<string>("BaseSwaggerURL") ?? "";
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddServer(new OpenApiServer
-    {
-        Url = serverUrl
-    });
-});
+// Swagger UI calls the host it is served from, works with both http and https profile
+builder.Services.AddSwaggerGen();
 var serviceName = "atMISEDU API";
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers().AddApplicationPart(Assembly.GetExecutingAssembly());
@@ -59,9 +54,21 @@ builder.Services.AddApiVersioning(options =>
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
-    options.SuppressModelStateInvalidFilter = true;
     options.SuppressConsumesConstraintForFormFileParameters = true;
-    options.InvalidModelStateResponseFactory = context => null;
+    // Request can not be bound (invalid JSON, wrong data type): return 400 in Result format
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var details = context.ModelState
+            .Where(m => m.Value?.Errors.Count > 0)
+            .SelectMany(m => m.Value!.Errors.Select(e => $"{m.Key}: {e.ErrorMessage}"))
+            .ToArray();
+        return new BadRequestObjectResult(new Result<object>
+        {
+            StatusCode = (int)HttpStatusCode.BadRequest,
+            MessageCode = MsgCode.ERR_BAD_REQUEST,
+            Error = new Error(string.Empty, details)
+        });
+    };
 });
 
 builder.Services.AddPersistence(builder.Configuration);
