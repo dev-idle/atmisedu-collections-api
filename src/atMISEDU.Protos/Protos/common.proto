@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "atMISEDU.Protos.Common";
+
+package atmisedu.common;
+
+// Result of a successful rpc, same meaning as Result of REST api.
+// Errors are returned as gRPC status with trailers "status-code" and "message-code".
+message CommonResult {
+  // Status code, same as HTTP status code
+  int32 status_code = 1;
+  // Success state of result
+  bool is_success = 2;
+  // Message code to provide information (MsgCode), empty when not set
+  string message_code = 3;
+}

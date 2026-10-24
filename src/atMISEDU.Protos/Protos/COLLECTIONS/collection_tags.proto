@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+option csharp_namespace = "atMISEDU.Protos.COLLECTIONS";
+
+package atmisedu.collections.v1;
+
+import "common.proto";
+
+// gRPC api version 1 for CollectionTags, same business rules as REST /v1/collections/CollectionTags
+service CollectionTagsService {
+  // Create CollectionTags, returns key_tags of created row
+  rpc Create (CreateCollectionTagsRequest) returns (CreateCollectionTagsReply);
+  // Update CollectionTags, only fields sent with value are changed
+  rpc Update (UpdateCollectionTagsRequest) returns (atmisedu.common.CommonResult);
+  // Soft delete CollectionTags (is_actived = 2)
+  rpc Delete (DeleteCollectionTagsRequest) returns (atmisedu.common.CommonResult);
+  // Get CollectionTags by key_tags, deleted row is not found
+  rpc GetDetail (GetDetailCollectionTagsRequest) returns (CollectionTagsReply);
+  // Get list of CollectionTags, default status 0 and 1
+  rpc GetAll (GetAllCollectionTagsRequest) returns (CollectionTagsListReply);
+}
+
+// Data of CollectionTags, fields are same as database columns
+message CollectionTagsData {
+  int32 key_tags = 1;
+  string tags_name = 2;
+  optional string tags_description = 3;
+  optional string tags_icon = 4;
+  optional string tags_style = 5;
+  int32 created_by = 6;
+  int32 created_date = 7;
+  int32 is_actived = 8;
+}
+
+// Fields are optional so "not sent" can be told apart from 0 or empty string
+message CreateCollectionTagsRequest {
+  optional string tags_name = 1;
+  optional string tags_description = 2;
+  optional string tags_icon = 3;
+  optional string tags_style = 4;
+  optional int32 created_by = 5;
+  optional int32 is_actived = 6;
+}
+
+message CreateCollectionTagsReply {
+  atmisedu.common.CommonResult result = 1;
+  int32 key_tags = 2;
+}
+
+message UpdateCollectionTagsRequest {
+  int32 key_tags = 1;
+  optional string tags_name = 2;
+  optional string tags_description = 3;
+  optional string tags_icon = 4;
+  optional string tags_style = 5;
+  optional int32 is_actived = 6;
+}
+
+message DeleteCollectionTagsRequest {
+  int32 key_tags = 1;
+}
+
+message GetDetailCollectionTagsRequest {
+  int32 key_tags = 1;
+}
+
+message GetAllCollectionTagsRequest {
+  optional int32 is_actived = 1;
+}
+
+message CollectionTagsReply {
+  atmisedu.common.CommonResult result = 1;
+  CollectionTagsData data = 2;
+}
+
+message CollectionTagsListReply {
+  atmisedu.common.CommonResult result = 1;
+  repeated CollectionTagsData data = 2;
+}
