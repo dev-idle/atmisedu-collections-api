@@ -18,7 +18,8 @@ namespace atMISEDU.Persistence.Configurations.HUBS
             builder.Property(x => x.CnIcon).HasColumnName(HubsChannelConst.FIELD_CN_ICON);
             builder.Property(x => x.CnStyle).HasColumnName(HubsChannelConst.FIELD_CN_STYLE);
             builder.Property(x => x.CnOrder).HasColumnName(HubsChannelConst.FIELD_CN_ORDER);
-            builder.Property(x => x.IsActived).HasColumnName(HubsChannelConst.FIELD_IS_ACTIVED);
+            // Column isActived is tinyint in database, convert to int of entity
+            builder.Property(x => x.IsActived).HasColumnName(HubsChannelConst.FIELD_IS_ACTIVED).HasConversion<byte>();
 
             builder.ToTable(TableConst.TABLE_HUBS_CHANNEL);
         }
